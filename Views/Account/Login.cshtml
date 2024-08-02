@@ -1,0 +1,62 @@
+﻿
+@using AniWatch.ViewModel;
+
+@model Login;
+
+@{
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Gathering Log In form Responsive Widget Template :: W3layouts</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <!-- //Meta tag Keywords -->
+    <link href="//fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <!--/Style-CSS -->
+    <link href="~/css/StyleSheet1.css" rel="stylesheet" />
+    <!--//Style-CSS -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all">
+
+</head>
+
+<body >
+    <div class="w3l-signinform">
+        <!-- container -->
+        <div class="wrapper">
+            <!-- main content -->
+            <div class="w3l-form-info">
+                <div class="w3_info">
+                    <h1>Welcome To AniWatch</h1>
+                    <p class="sub-para">You Chose The Best PlatForm.</p>
+                    <h2>Log In</h2>
+                        <form class="w3ls-login" asp-action="Login" method="post">
+                      
+                            <div class="input-group">
+                                <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                            <div class="input-group two-groop">
+                                <span><i class="fa fa-key" aria-hidden="true"></i></span>
+                                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                            </div>
+
+                            <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                        </form>
+
+                    <p class="account">Don't have an account? <a asp-action="Register" asp-controller="Account">Register</a></p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

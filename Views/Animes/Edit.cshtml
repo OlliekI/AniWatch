@@ -1,0 +1,158 @@
+﻿@model NewAnimeVM
+@using AniWatch.Data;
+@using AniWatch.Data.ViewModels
+
+@{
+    ViewData["Title"] = "Update movie";
+}
+
+<style>
+    body {
+        background-color: #000;
+        backdrop-filter: blur(5px);
+    }
+
+    button {
+        padding: 10px 20px;
+        text-transform: uppercase;
+        border-radius: 8px;
+        font-size: 17px;
+        font-weight: 500;
+        color: #ffffff80;
+        text-shadow: none;
+        background: transparent;
+        cursor: pointer;
+        box-shadow: transparent;
+        border: 1px solid #ffffff80;
+        transition: 0.5s ease;
+        user-select: none;
+    }
+
+        button:hover,
+        button:focus {
+            color: #ffffff;
+            background: #B026FF;
+            border: 1px solid #008cff;
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+            box-shadow: 0 0 5px #008cff, 0 0 20px #003740, 0 0 50px #003740, 0 0 100px #008cff;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4 style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;">Update Movie</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StartDate" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <input asp-for="StartDate" type="date" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EndDate" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <input asp-for="EndDate" type="date" class="form-control" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <input asp-for="Price" type="number" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ImageURL" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <input asp-for="ImageURL" class="form-control" />
+                                <span asp-validation-for="ImageURL" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CinemaId" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <select asp-for="CinemaId" class="form-control" asp-items="ViewBag.Cinemas"></select>
+                                <span asp-validation-for="CinemaId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MovieCategory" class="control-label"
+                                       style="background-color: #B026FF color: white; padding: 10px; border-radius: 5px;"></label>
+                                <select asp-for="MovieCategory" class="form-control" asp-items="Html.GetEnumSelectList<AnimeCategory>()"></select>
+                                <span asp-validation-for="MovieCategory" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProducerId" class="control-label"
+                                       style="background-color: #B026FF color: white; padding: 10px; border-radius: 5px;"></label>
+                                <select asp-for="ProducerId" class="form-control" asp-items="ViewBag.Producers"></select>
+                                <span asp-validation-for="ProducerId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ActorIds" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <select asp-for="ActorIds" class="form-control" asp-items="ViewBag.Actors" multiple></select>
+                                <span asp-validation-for="ActorIds" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"
+                                       style="background-color: #B026FF; color: white; padding: 10px; border-radius: 5px;"></label>
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="ImageUrlPreview" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-success float-right">UPDATE</button>
+
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("Index")'">Back</button>
+
+                       @*  <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+                            <div class="form-group">
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form> *@
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById("ImageUrlPreview");
+            output.src = $("#ImageURL").val();
+        });
+
+        $("#ImageURL").on("change", function () {
+            var output = document.getElementById("ImageUrlPreview");
+            output.src = $(this).val();
+        })
+    </script>
+}

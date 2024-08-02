@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "Roles";
+}
+<style>
+    body {
+        background-color: #000000;
+    }
+</style>
+<style>
+    /* Define neon effect */
+    .neon-button {
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.4s, background-color 0.4s, box-shadow 0.4s;
+    }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0fd;
+            z-index: -1;
+            transition: opacity 0.4s, transform 0.4s;
+            border-radius: 5px;
+        }
+
+        .neon-button:hover::before {
+            opacity: 0.5;
+            transform: scale(2);
+        }
+
+        /* Apply neon effect to buttons */
+        .neon-button.edit:hover::before {
+            background-color: #0f0;
+        }
+
+        .neon-button.details:hover::before {
+            background-color: #00f;
+        }
+
+        .neon-button.delete:hover::before {
+            background-color: #f00;
+        }
+</style>
+<div class="container mt-5">
+    <h1 style="color: white">Roles</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
+
+    <table class="table table-bordered table-hover" >
+        <thead class="thead-dark">
+            <tr>
+                <th style="background-color: #B026FF">Id</th>
+                <th style="background-color: #B026FF">Role</th>
+                <th style="background-color: #B026FF"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td style="color: white">@role.Id</td>
+                    <td style="color: white">@role.Name</td>
+                    <td style="color: white">
+                        <a asp-action="Edit" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-sm btn-primary">Edit</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

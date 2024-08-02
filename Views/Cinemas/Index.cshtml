@@ -1,0 +1,141 @@
+﻿
+
+ @model IEnumerable<Cinema>
+
+@{
+    ViewData["Title"] = "List of cinemas";
+}
+
+<style>
+    body {
+        background-color: #000000;
+    }
+</style>
+
+<style>
+    /* Define neon effect */
+    .neon-button {
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.4s, background-color 0.4s, box-shadow 0.4s;
+    }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0fd;
+            z-index: -1;
+            transition: opacity 0.4s, transform 0.4s;
+            border-radius: 5px;
+        }
+
+        .neon-button:hover::before {
+            opacity: 0.5;
+            transform: scale(2);
+        }
+
+        /* Apply neon effect to buttons */
+        .neon-button.edit:hover::before {
+            background-color: #0f0;
+        }
+
+        .neon-button.details:hover::before {
+            background-color: #00f;
+        }
+
+        .neon-button.delete:hover::before {
+            background-color: #f00;
+        }
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+
+            <table class="table table-bordered table-hover" ;>
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th style="background-color: #B026FF">Logo</th>
+                        <th style="background-color: #B026FF">Name</th>
+                        <th style="background-color: #B026FF">Description</th>
+                        <th style="background-color: #B026FF">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cinema in Model)
+                    {
+                        <tr>
+                            <td class="align-middle">
+                                <img src="@cinema.Logo" alt="@cinema.Name" class="img-thumbnail" style="width: 80px; height: 80px;" />
+                            </td>
+                            <td class="align-middle" style=" color:white">
+                                @cinema.Name
+                            </td>
+                            <td class="align-middle" style="color:white">
+                                @cinema.Description
+                            </td>
+                            <td class="text-center align-middle">
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-outline-primary neon-button edit" asp-action="Edit" asp-route-id="@cinema.Id">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <a class="btn btn-outline-info neon-button details" asp-action="Details" asp-route-id="@cinema.Id">
+                                        <i class="bi bi-eye"></i> Details
+                                    </a>
+                                    <a class="btn btn-outline-danger neon-button delete" asp-action="Delete" asp-route-id="@cinema.Id">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="fixed-bottom text-right mb-4 mr-4">
+        <a asp-controller="Cinemas" asp-action="Create" class="btn btn-dark">
+            <i class="bi bi-plus-circle" ;></i> Add New Cinema
+        </a>
+    </div>
+</div>
+<style>
+    tr {
+        background-color: black;
+    }
+
+</style>
+<style>
+    .table-hover tbody tr:hover {
+        background-color: black;
+    }
+
+    .btn-group .btn {
+        border-radius: 0;
+    }
+
+    .table th, .table td {
+        border: none;
+    }
+
+    .fixed-bottom {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
+</style>

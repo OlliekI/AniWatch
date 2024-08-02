@@ -1,0 +1,53 @@
+﻿@model List<UserViewModel>
+@{
+    var roleId = ViewBag.roleId;
+}
+
+<style>
+    body {
+        background-color: black
+    }
+
+    .card {
+        margin-top: 40px;
+        background-color:  #B026FF;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+</style>
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="color: black">Current Users</h1>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model[i].UserId" />
+                    <input type="hidden" asp-for="@Model[i].UserName" />
+                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model[i].IsSelected" style="color: black">
+                        @Model[i].UserName
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
+            <a asp-action="Index" asp-controller="Role" class="btn btn-primary" style="width:auto">Cancel</a>
+        </div>
+    </div>
+</form>

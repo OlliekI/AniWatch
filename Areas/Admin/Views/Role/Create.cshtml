@@ -1,0 +1,120 @@
+﻿@model String
+
+@{
+    ViewData["Title"] = "Create a Role";
+}
+
+<style>
+    body {
+        background-color: #000000
+    }
+
+    .container {
+        margin-top: 40px;
+    }
+
+    .card {
+        background-color:  #B026FF;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+</style>
+<style>
+    /* Define neon effect */
+    .neon-button {
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.4s, background-color 0.4s, box-shadow 0.4s;
+    }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0fd;
+            z-index: -1;
+            transition: opacity 0.4s, transform 0.4s;
+            border-radius: 5px;
+        }
+
+        .neon-button:hover::before {
+            opacity: 0.5;
+            transform: scale(2);
+        }
+
+        /* Apply neon effect to buttons */
+        .neon-button.edit:hover::before {
+            background-color: #0f0;
+        }
+
+        .neon-button.details:hover::before {
+            background-color: #00f;
+        }
+
+        .neon-button.delete:hover::before {
+            background-color: #f00;
+        }
+
+    button {
+        padding: 10px 20px;
+        text-transform: uppercase;
+        border-radius: 8px;
+        font-size: 17px;
+        font-weight: 500;
+        color: #ffffff80;
+        text-shadow: none;
+        background: transparent;
+        cursor: pointer;
+        box-shadow: transparent;
+        border: 1px solid #ffffff80;
+        transition: 0.5s ease;
+        user-select: none;
+    }
+
+        button:hover,
+        button:focus {
+            color: #ffffff;
+            background: #B026FF;
+            border: 1px solid #008cff;
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+            box-shadow: 0 0 5px #008cff, 0 0 20px #003740, 0 0 50px #003740, 0 0 100px #008cff;
+        }
+</style>
+
+<div class="container">
+    <h1 style="color: white">Create a Role</h1>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label class="control-label" style="color: white">Role Name</label>
+                        <input type="text" name="name" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("Index")'">Back</button>
+    </div>
+</div>

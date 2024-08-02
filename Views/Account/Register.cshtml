@@ -1,0 +1,61 @@
+﻿@using AniWatch.ViewModel;
+
+@model Register;
+
+@{
+    ViewData["Title"] = "Register";
+}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Register - AliFlix</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <!-- //Meta tag Keywords -->
+    <link href="//fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <!--/Style-CSS -->
+    <link href="~/css/StyleSheet1.css" rel="stylesheet" />
+    <!--//Style-CSS -->
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all">
+</head>
+
+<body>
+    <div class="w3l-signinform">
+        <!-- container -->
+        <div class="wrapper">
+            <!-- main content -->
+            <div class="w3l-form-info">
+                <div class="w3_info">
+                    <h1>Welcome To AniWatch</h1>
+                    <p class="sub-para">You Chose The Best Platform.</p>
+                    <h2>Register</h2>
+                    <form class="w3ls-login" asp-action="Register" method="post">
+                        <div class="input-group">
+                            <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                            <input asp-for="Name" class="form-control" placeholder="Enter your Name" required>
+                        </div>
+                        <div class="input-group">
+                            <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                            <input asp-for="Email" class="form-control" placeholder="Enter your Email" required>
+                        </div>
+                        <div class="input-group">
+                            <span><i class="fa fa-key" aria-hidden="true"></i></span>
+                            <input asp-for="Password" class="form-control" placeholder="Enter your Password" required>
+                        </div>
+                        <div class="input-group">
+                            <span><i class="fa fa-key" aria-hidden="true"></i></span>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your Password" required>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">Register</button>
+                    </form>
+
+                    <p class="account">I have an account? <a asp-action="Login" asp-controller="Account">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

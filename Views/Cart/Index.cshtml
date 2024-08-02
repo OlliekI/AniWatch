@@ -1,0 +1,194 @@
+﻿@model CartViewModel
+
+@{
+    ViewData["Title"] = "Cart Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Assuming you have a shared layout
+}
+<link href="~/css/stylesheet2.css" rel="stylesheet" />
+
+<style>
+    body {
+        background-color: #000000;
+        color: white;
+    }
+
+    h1, h3 {
+        color: white;
+    }
+
+    .table {
+        color: white;
+        background-color: #1e1e1e;
+    }
+
+        .table th {
+            background-color: #333;
+            color: #B026FF;
+        }
+
+        .table td {
+            background-color: #222;
+        }
+
+        .table .thead-dark th {
+            border: none;
+        }
+
+        .table .btn-group .btn {
+            color: white;
+            border: none;
+        }
+
+        .table .btn-group .btn-primary {
+            background-color: #0f0;
+        }
+
+        .table .btn-group .btn-success {
+            background-color: #00f;
+        }
+
+        .table .btn-group .btn-danger {
+            background-color: #f00;
+        }
+
+    .neon-button {
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.4s, background-color 0.4s, box-shadow 0.4s;
+    }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0fd;
+            z-index: -1;
+            transition: opacity 0.4s, transform 0.4s;
+            border-radius: 5px;
+        }
+
+        .neon-button:hover::before {
+            opacity: 0.5;
+            transform: scale(2);
+        }
+
+        .neon-button:hover {
+            color: #fff;
+            background-color: #B026FF;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
+            box-shadow: 0 0 5px #B026FF, 0 0 20px #B026FF, 0 0 50px #B026FF, 0 0 100px #B026FF;
+        }
+
+        .neon-button.checkout:hover::before {
+            background-color: #00f;
+        }
+
+        .neon-button.clear:hover::before {
+            background-color: #f00;
+        }
+
+        .neon-button.shopping:hover::before {
+            background-color: #0f0;
+        }
+
+    .cart-wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .cart-items {
+        flex: 1;
+        min-width: 60%;
+    }
+
+    .cart-summary {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 10px;
+        flex: 0 1 35%;
+        margin-left: 20px;
+    }
+
+        .cart-summary h3, .cart-summary p {
+            color: white;
+        }
+
+        .cart-summary .neon-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+</style>
+
+<div class="container mt-5">
+    @if (Model.CartItems.Count > 0)
+    {
+        <h1 class="mb-4">Cart Overview</h1>
+
+        <div class="cart-wrapper">
+            <div class="cart-items">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th></th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td>@item.MovieName</td>
+                                <td>@item.Quantity</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Quantity Controls">
+                                        <a asp-action="Add" asp-route-id="@item.MovieId" class="btn btn-sm neon-button">+</a>
+                                        <a asp-action="Decrease" asp-route-id="@item.MovieId" class="btn btn-sm neon-button">-</a>
+                                        <a asp-action="Remove" asp-route-id="@item.MovieId" class="btn btn-sm neon-button">Remove</a>
+                                    </div>
+                                </td>
+                                <td>@item.Price.ToString("C2")</td>
+                                <td>@((item.Quantity * item.Price).ToString("C2"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-right" colspan="4"><strong>Grand Total:</strong></td>
+                            <td><strong>@Model.GrandTotal.ToString("C2")</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="cart-summary">
+                <h3>Cart Total</h3>
+                <p>Shipping & taxes calculated at checkout</p>
+                <p><strong>Total: @Model.GrandTotal.ToString("C2")</strong></p>
+                <a class="btn neon-button checkout" asp-controller="Checkout" asp-action="Index">Checkout</a>
+                <a class="btn neon-button shopping" asp-controller="Animes" asp-action="Index">Continue Shopping</a>
+                <a class="btn neon-button clear" asp-action="Clear">Clear Cart</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <h3 class="display-4">Your cart is empty.</h3>
+            <a class="btn neon-button shopping" asp-controller="Animes" asp-action="Index">Browse Anime</a>
+        </div>
+    }
+</div>

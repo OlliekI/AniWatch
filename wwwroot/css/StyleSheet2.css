@@ -1,0 +1,78 @@
+﻿body {
+    background-image: url("https://thefatork.store/cdn/shop/articles/netflix.jpg?v=1669877376");
+    backdrop-filter: blur(5px);
+}
+
+.cart-wrapper {
+    background-color: lightgray;
+    padding: 20px;
+    border-radius: 40px;
+    box-shadow: 0 10px 10px black;
+    margin-top: 20px;
+}
+
+.table-bordered {
+    border: 2px solid black;
+}
+
+.thead-dark th {
+    border: 2px solid black;
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .btn-group a {
+        flex: 1;
+        margin: 2px;
+    }
+
+.text-right {
+    text-align: right;
+}
+
+.mt-3 {
+    margin-top: 15px;
+}
+
+.btn-danger, .btn-success, .btn-primary {
+    margin-right: 10px;
+}
+
+    .btn-danger:hover, .btn-success:hover, .btn-primary:hover {
+        opacity: 0.9;
+    }
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #218838;
+    }
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #c82333;
+    }

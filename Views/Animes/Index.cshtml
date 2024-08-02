@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Anime>
+
+@{
+    ViewData["Title"] = "List of Anime";
+}
+
+<style>
+    body {
+        background-color: #000; /* Set the background color to black */
+        backdrop-filter: blur(5px);
+    }
+
+    .card {
+        background: rgb(4,0,255);
+        background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%);
+        transition: 0.3s;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: #000000;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card:hover {
+        box-shadow: 0 0 20px rgba(209,0,255,0.8), 0 0 30px rgba(136,0,255,0.8), 0 0 40px rgba(4,0,255,0.8), 0 0 50px rgba(209,0,255,0.8);
+    }
+
+    .card-footer {
+        background-color: #000000;
+        border-radius: 0 0 15px 15px;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .card-footer a {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+     button {
+        padding: 10px 20px;
+        text-transform: uppercase;
+        border-radius: 8px;
+        font-size: 17px;
+        font-weight: 500;
+        color: #ffffff80;
+        text-shadow: none;
+        background: transparent;
+        cursor: pointer;
+        box-shadow: transparent;
+        border: 1px solid #ffffff80;
+        transition: 0.5s ease;
+        user-select: none;
+    }
+
+        button:hover,
+        button:focus {
+            color: #ffffff;
+            background: #B026FF;
+            border: 1px solid #008cff;
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+            box-shadow: 0 0 5px #008cff, 0 0 20px #003740, 0 0 50px #003740, 0 0 100px #008cff;
+        }
+
+    #btn-cart {
+        color: #ffffff80;
+        border: 1px solid #ffffff80;
+    }
+
+        #btn-cart:hover,
+        #btn-cart:focus {
+            color: #ffffff;
+            background: #39FF14;
+            border: 1px solid #39FF14;
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+            box-shadow: 0 0 5px #39FF14, 0 0 20px #39FF14, 0 0 50px #39FF14, 0 0 100px #39FF14;
+        }
+</style>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px; opacity: 0.78; transition: opacity 0.3s;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white" style="background-color: #000000;">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.Name
+                                    @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                    }
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.ImageURL" width="100%" alt="@item.Name">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text"><b>Cinema: </b>@item.Cinema.Name</p>
+                            <p class="card-text"><b>Category: </b>@item.MovieCategory</p>
+                            <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
+                            <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
+                            <p class="card-text ">
+                                <b>Status: </b>
+                                @if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+                                {
+                                    <span class="badge bg-success text-white">AVAILABLE</span>
+                                }
+                                else if (DateTime.Now > item.EndDate)
+                                {
+                                    <span class="badge bg-danger text-white">EXPIRED</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">UPCOMING</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <button id="btn">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </button>
+                            </a>
+                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">
+                                <button id="btn-cart">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@await Html.PartialAsync("_CreateItem", "Animes")
